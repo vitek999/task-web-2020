@@ -5,6 +5,7 @@ import { Button, Container, Header, Modal, Segment } from 'semantic-ui-react';
 import './styles.css';
 import { TasksList } from './TasksList';
 import { CreateTask } from './CreateTask';
+import { TaskItem } from './TaskItem';
 
 export function Todos(): ReactElement {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -65,7 +66,10 @@ export function Todos(): ReactElement {
       <Container className={'tasks-container'}>
         <Header size={'large'}>Задачи</Header>
         <Segment loading={isLoading}>
-          <TasksList tasks={tasks} onDelete={handleOnDelete} onChange={handleOnChange} />
+          <TasksList
+            tasks={tasks}
+            renderItem={(item) => <TaskItem task={item} onChange={handleOnChange} onDelete={handleOnDelete} />}
+          />
         </Segment>
         <Button floated={'right'} primary size={'large'} onClick={() => setOpen(true)}>
           Добавить задачу

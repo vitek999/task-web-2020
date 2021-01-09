@@ -1,21 +1,17 @@
 import React, { ReactElement } from 'react';
 import { List } from 'semantic-ui-react';
 import { Task } from '../dto/Task';
-import { TaskItem } from './TaskItem';
 
 export interface TasksListProps {
   tasks: Task[];
-  onDelete: (id: number) => void;
-  onChange: (task: Task) => void;
+  renderItem: (item: Task) => JSX.Element;
 }
 
-export function TasksList({ tasks, onDelete, onChange }: TasksListProps): ReactElement {
+export function TasksList({ tasks, renderItem }: TasksListProps): ReactElement {
   return (
     <div>
       <List size={'large'} divided>
-        {tasks.map((item) => (
-          <TaskItem onDelete={onDelete} key={item.id} task={item} onChange={onChange} />
-        ))}
+        {tasks.map((item) => renderItem(item))}
       </List>
     </div>
   );
